@@ -11,8 +11,6 @@ function Article (rawDataObj) {
   this.authorUrl= rawDataObj.authorUrl;
   this.publishedOn= rawDataObj.publishedOn;
   this.body= rawDataObj.body;
-
-
 }
 
 
@@ -22,6 +20,7 @@ Article.prototype.toHtml = function() {
   However, in our modules.css stylesheet, we gave all elements
   with a class of template a display of none. Let's make
   sure we're not accidentally hiding our cloned article! */
+  $newArticle.removeClass('template');
 
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.data('category', this.category);
@@ -41,6 +40,8 @@ Article.prototype.toHtml = function() {
   return $newArticle;
 };
 
+
+
 rawData.sort(function(a,b) {
   // REVIEW: Take a look at this sort method; This may be the first time we've seen it.
   return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
@@ -50,6 +51,7 @@ rawData.forEach(function(articleObject) {
   // REVIEW: Take a look at this forEach method; This may be the first time we've seen it.
   articles.push(new Article(articleObject));
 });
+//
 
 articles.forEach(function(article) {
   $('#articles').append(article.toHtml());
